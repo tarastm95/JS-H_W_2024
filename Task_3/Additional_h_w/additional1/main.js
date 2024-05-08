@@ -464,45 +464,73 @@ console.log(maxPageCount);
 console.log(maxArray);
 
 console.log(`=============Task 2.6.3 ================`);
-// - знайти книжку/ки з найбільшою кількістю жанрів;
 let the_largest_genres = 0;
-let the_largest_genres_book = null;
+let array_with_genres = [];
+let item = 0;
+
 for (let book of books) {
     if (book.genres.length >= the_largest_genres) {
-        the_largest_genres = book.genres.length;
-        the_largest_genres_book = book;
+        if (book.genres.length > the_largest_genres) {
+            array_with_genres = [book];
+            the_largest_genres = book.genres.length;
+        } else {
+            array_with_genres[item] = book;
+            item++;
+        }
     }
 }
+
 console.log(the_largest_genres);
-console.log(the_largest_genres_book);
+console.log(array_with_genres);
 
 console.log(`=============Task 2.6.4 ================`);
 // - знайти книжку/ки з найдовшою назвою
 
 let the_largest_title = '';
 let the_largest_title_book = null;
+let array_with_titles = [];
+item = 0;
+
 for (let book of books) {
     if (the_largest_title.length < book.title.length) {
         the_largest_title = book.title;
         the_largest_title_book = book;
+        array_with_titles = [book];
+    } else if (the_largest_title.length === book.title.length) {
+        array_with_titles[item] = book;
+        item++;
     }
 }
+
 console.log(the_largest_title);
 console.log(the_largest_title_book);
+console.log(array_with_titles);
 
 console.log(`=============Task 2.6.5 ================`);
 //- знайти книжку/ки які писали 2 автори
 let number_of_authors = 2;
+let array_with_authors = [];
+item = 0;
 for (let book of books) {
     if(book.authors.length === number_of_authors) {
-        console.log(book)
+        array_with_authors[item] = book;
+        item++;
+
     }
 }
+console.log(array_with_authors);
+
 console.log(`=============Task 2.6.6 ================`);
 //2.6.6 - знайти книжку/ки які писав 1 автор
 let num_of_authors = 1;
+let array_with_author = [];
+item = 0;
+
 for (let book of books) {
-    if(book.authors.length === num_of_authors) {
-        console.log(book)
+    if (book.authors.length === num_of_authors) {
+        array_with_author[item] = book;
+        item++;
     }
 }
+
+console.log(array_with_author);
