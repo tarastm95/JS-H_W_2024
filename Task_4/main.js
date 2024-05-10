@@ -177,9 +177,9 @@ console.log(`=========================== Завдання номер 13 ========
 
 function exchange (sumUAH,currencyValues,exchangeCurrency) {
     if (exchangeCurrency === 'USD') {
-        return sumUAH * currencyValues[0].value;
+        return sumUAH / currencyValues[0].value;
     } else if (exchangeCurrency === 'EUR') {
-        return sumUAH * currencyValues[1].value;
+        return sumUAH / currencyValues[1].value;
     }
 }
 console.log(exchange(10000,[{currency:'USD',value:40},{currency:'EUR',value:42}],'USD'));
