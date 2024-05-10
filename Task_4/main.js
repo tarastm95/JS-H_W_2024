@@ -163,10 +163,10 @@ console.log(`=========================== Завдання номер 12 ========
 let swap_array = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
 function swap(arr, elem_1, elem_2) {
-   let change = arr[elem_1];
+    let change = arr[elem_1];
     arr[elem_1] = arr[elem_2];
     arr[elem_2] = change;
-   return arr;
+    return arr;
 }
 
 console.log(swap(swap_array, 1, 0));
@@ -175,13 +175,15 @@ console.log(`=========================== Завдання номер 13 ========
 // 13 - - Написати функцію обміну валюти exchange(sumUAH,currencyValues,exchangeCurrency)
 // Приклад exchange(10000,[{currency:'USD',value:40},{currency:'EUR',value:42}],'USD') // => 250;
 
-function exchange (sumUAH,currencyValues,exchangeCurrency) {
-    if (exchangeCurrency === 'USD') {
-        return sumUAH / currencyValues[0].value;
-    } else if (exchangeCurrency === 'EUR') {
-        return sumUAH / currencyValues[1].value;
+function exchange(sumUAH, currencyValues, exchangeCurrency) {
+    for (let currency of currencyValues) {
+        if (currency.currency === exchangeCurrency) {
+            return sumUAH / currency.value;
+        }
     }
+    return `Невірне значення валюти`;
 }
-console.log(exchange(10000,[{currency:'USD',value:40},{currency:'EUR',value:42}],'USD'));
+
+console.log(exchange(10000, [{currency: 'USD', value: 40}, {currency: 'EUR', value: 42}], 'USD'));
 
 console.log(`=========================== THE END =============================`);
