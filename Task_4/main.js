@@ -68,7 +68,7 @@ document.write(`=========================== Завдання номер 6 ======
 
 // 6 - створити функцію яка створює ul з трьома елементами li. Текст li задати через аргумент всім однаковий
 function ul_with_text(text) {
-    document.write(`</ul>`);
+    document.write(`<ul>`);
     for (let i = 0; i < 3; i++) {
         document.write(`<li>${text}</li>`);
     }
@@ -82,7 +82,7 @@ document.write(`=========================== Завдання номер 7 ======
 
 // 7 - створити функцію яка створює ul з трьома елементами li. Текст li задати через аргумент всім однаковий. Кількість li визначається другим аргументом, який є числовим (тут використовувати цикл)
 function ul_with_text_2(text, elem) {
-    document.write(`</ul>`);
+    document.write(`<ul>`);
     for (let i = 0; i < elem; i++) {
         document.write(`<li>${text}</li>`);
     }
@@ -97,9 +97,9 @@ document.write(`=========================== Завдання номер 8 ======
 let primitive_array = [1, 2, true, false, 'hello', 'end'];
 
 function primitive_list(arr) {
-    document.write(`</ul>`);
+    document.write(`<ul>`);
     for (let i = 0; i < arr.length; i++) {
-        document.write(`<li>${primitive_array[i]}</li>`);
+        document.write(`<li>${arr[i]}</li>`);
     }
 
     document.write(`</ul>`);
