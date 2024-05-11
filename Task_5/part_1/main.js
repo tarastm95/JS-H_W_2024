@@ -18,9 +18,7 @@
 console.log(`=========================== Завдання номер 1 =============================`);
 
 // 1 - створити функцію яка обчислює та повертає площу прямокутника зі сторонами а і б
-//function area_of_the_rectangle(a, b) {
-//    return a * b;
-// }
+
 const area_of_the_rectangle = (a, b) => a * b;
 
 console.log(area_of_the_rectangle(10, 20));
@@ -28,9 +26,6 @@ console.log(area_of_the_rectangle(10, 20));
 console.log(`=========================== Завдання номер 2 =============================`);
 
 //2 - створити функцію яка обчислює та повертає площу кола з радіусом r
-//function area_of_a_circle(R) {
-//   return Math.PI * Math.pow(R, 2);
-//}
 
 const area_of_a_circle = R => Math.PI * Math.pow(R, 2);
 
@@ -39,11 +34,6 @@ console.log(area_of_a_circle(19));
 console.log(`=========================== Завдання номер 3 =============================`);
 
 // 3 - створити функцію яка обчислює та повертає площу циліндру висотою h, та радіутом r
-// function area_of_the_cylinder(R, H) {
-//    let lateral_area = 2 * Math.PI * R * H;
-//    let top_and_bottom_area = 2 * Math.PI * Math.pow(R, 2);
-//    return lateral_area + top_and_bottom_area;
-// }
 
 const area_of_the_cylinder = (R, H) => {
     let lateral_area = 2 * Math.PI * R * H;
@@ -55,12 +45,6 @@ console.log(area_of_the_cylinder(10, 20));
 
 console.log(`=========================== Завдання номер 4 =============================`);
 // 4 - створити функцію яка приймає масив та виводить кожен його елемент
-
-// function some_array(some_array_4) {
-//    for (let i = 0; i < some_array_4.length; i++) {
-//       console.log(some_array_4[i]);
-//    }
-// }
 
 let some_array_4 = [1, 'Taras', true, false, 'end'];
 const some_array = (some_array_4) => {
@@ -74,9 +58,6 @@ some_array(some_array_4);
 console.log(`=========================== Завдання номер 5 =============================`);
 
 // 5 - створити функцію яка створює параграф з текстом. Текст задати через аргумент
-//function p_with_text(text) {
-//    document.write(`<div><p>${text}</p></div>`)
-//}
 
 const p_with_text = (text) => {
     document.write(`<div><p>${text}</p></div>`);
