@@ -17,4 +17,4 @@ fetch('http://jsonplaceholder.typicode.com/users')
             usersList.appendChild(listItem);
         });
     })
-    .catch(error => console.error('Error fetching users:', error));
+    .catch(error => console.error('Помилка:', error));
