@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Документ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #userDetails {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 90%;
+        }
+
+        #userDetails p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        #btn-container {
+            text-align: center; /* Центруємо вміст по центру */
+            margin-top: 20px;
+        }
+
+        #btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #btn:hover {
+            background-color: #0056b3;
+        }
+
+        .post-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .post {
+            width: calc(20% - 10px);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .post p {
+            margin: 5px 0;
+        }
+
+        .post a {
+            display: block;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .post a:hover {
+            background-color: #0056b3;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>Деталі користувача</h1>
+<div id="userDetails"></div>
+<script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    const userId = getQueryParam('id');
+
+    if (userId) {
+        fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Помилка: не вдалося завантажити дані');
+                }
+                return response.json();
+            })
+            .then(user => {
+                const userDetails = document.getElementById('userDetails');
+                const userInfo = `
+                        <p>ID: ${user.id}</p>
+                        <p>Ім'я: ${user.name}</p>
+                        <p>Логін: ${user.username}</p>
+                        <p>Email: ${user.email}</p>
+                        <p>Адреса: ${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}</p>
+                        <p>Телефон: ${user.phone}</p>
+                        <p>Вебсайт: ${user.website}</p>
+                        <p>Компанія: ${user.company.name}, ${user.company.catchPhrase}, ${user.company.bs}</p>
+                        <div id="btn-container">
+                            <a id="btn" href="#">Подивитись пости</a>
+                        </div>
+
+                         <div class="post-details"></div>
+                    `;
+                userDetails.innerHTML = userInfo;
+
+                function showTitlePost() {
+                    fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+                        .then(res => {
+                            if (!res.ok) {
+                                throw new Error('Помилка: не вдалося завантажити дані');
+                            }
+                            return res.json();
+                        })
+                        .then(posts => {
+                            const postDetails = document.querySelector('.post-details');
+                            let postInfo = '';
+
+                            posts.forEach(post => {
+                                postInfo += `
+                                    <div class="post">
+                                        <p>Заголовок: ${post.title}</p>
+                                        <a href="post-details.html?id=${post.id}&userId=${post.userId}">Прочитати пост</a>
+                                    </div>
+                                `;
+                            });
+
+                            postDetails.innerHTML = postInfo;
+                        })
+                        .catch(error => console.error('Помилка:', error));
+                }
+
+                let btn = document.getElementById('btn');
+                btn.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    showTitlePost();
+                });
+            })
+            .catch(error => {
+                console.error('Помилка', error);
+                document.getElementById('userDetails').innerText = 'Помилка: не вдалося завантажити дані про користувача';
+            });
+    } else {
+        document.getElementById('userDetails').innerText = 'В URL не вказано ID користувача';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .block-id-and-name {
+            border: none;
+            padding: 20px;
+            width: calc(50% - 40px);
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 40px;
+        }
+
+        .block-id-and-name:hover {
+            transform: translateY(-5px);
+        }
+
+        .id-and-name {
+            margin: 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+
+    </style>
+</head>
+<body>
+<script>
+    function createUserBlocks(users) {
+        const container = document.createElement('div');
+        container.id = 'main';
+        document.body.appendChild(container);
+
+        users.forEach(user => {
+            const userDiv = document.createElement('div');
+            userDiv.className = 'block-id-and-name';
+
+            const idP = document.createElement('p');
+            idP.className = 'id-and-name';
+            idP.innerText = `Id: ${user.id} Name: ${user.name}`;
+
+            const detailsLink = document.createElement('a');
+            detailsLink.href = `user-details.html?id=${user.id}`;
+            detailsLink.innerText = 'Детальніше';
+
+            userDiv.appendChild(idP);
+            userDiv.appendChild(detailsLink);
+            container.appendChild(userDiv);
+        });
+    }
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            return response.json();
+        })
+        .then(users => {
+            createUserBlocks(users);
+        })
+        .catch(error => {
+            console.error('Помилка:', error);
+            const errorMessage = document.createElement('p');
+            errorMessage.textContent = 'Помилка: не вдалося завантажити дані';
+            document.body.appendChild(errorMessage);
+        });
+</script>
+</body>
+</html>

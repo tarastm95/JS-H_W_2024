@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #postDetails {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        #postDetails p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Post details</h1>
+<div id="postDetails"></div>
+<script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    const postId = parseInt(getQueryParam('id'), 10);
+    const userId = getQueryParam('userId');
+
+    if (userId) {
+        fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Помилка: не вдалося завантажити дані про пост');
+                }
+                return response.json();
+            })
+            .then(posts => {
+                const targetElement = posts.find(item => item.id === postId);
+                const postDetails = document.getElementById('postDetails');
+                if (targetElement) {
+                    const userInfo = `
+                        <p>UserId: ${targetElement.userId}</p>
+                        <p>Id: ${targetElement.id}</p>
+                        <p>Title: ${targetElement.title}</p>
+                        <p>Body: ${targetElement.body}</p>
+                    `;
+                    postDetails.innerHTML = userInfo;
+                } else {
+                    console.error(`Пост з айді: ${postId} не знайдено`);
+                    postDetails.innerText = `Пост з айді: ${postId} не знайдено`;
+                }
+            })
+            .catch(error => {
+                console.error('Помилка', error);
+                const postDetails = document.getElementById('postDetails');
+                postDetails.innerText = 'Помилка: не вдалося завантажити дані про пост';
+            });
+    } else {
+        document.getElementById('postDetails').innerText = 'В URL не вказано ID поста';
+    }
+</script>
+</body>
+</html>
